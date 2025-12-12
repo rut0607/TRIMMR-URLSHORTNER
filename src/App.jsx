@@ -1,13 +1,16 @@
-// App.jsx - UPDATED with separate login/signup
+// App.jsx - UPDATED with separate pages
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/landing";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/login";      // Separate login page
-import Signup from "./pages/signup";    // Separate signup page
-import Link from "./pages/Link";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
+import CreateLink from "./pages/CreateLink";  // Renamed from link.jsx
+import EditLink from "./pages/EditLink";      // New page
+import QrCodePage from "./pages/QrCodePage";  // New page
+import Analytics from "./pages/Analytics";    // Your existing analytics
 import RedirectLink from "./pages/redirect-link";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -21,11 +24,11 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "login",      // Separate login route
+        path: "login",
         element: <Login />,
       },
       {
-        path: "signup",     // Separate signup route
+        path: "signup",
         element: <Signup />,
       },
       {
@@ -43,8 +46,20 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "link/:id?",
-        element: <Link />,
+        path: "link",
+        element: <CreateLink />,  // Create new link
+      },
+      {
+        path: "link/:id/edit",
+        element: <EditLink />,    // Edit existing link
+      },
+      {
+        path: "qr/:id",
+        element: <QrCodePage />,  // QR code page
+      },
+      {
+        path: "analytics/:id",
+        element: <Analytics />,  // Analytics page with real data
       },
     ],
   },

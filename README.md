@@ -14,3 +14,40 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+# 🔗 TRIMMR URL Shortener
+
+A modern, full-featured URL shortening service with analytics built with React, Tailwind CSS, and Supabase.
+
+## 🚀 Features
+
+- **URL Shortening**: Create short, memorable links instantly
+- **Custom Slugs**: Brand your links with custom names
+- **Analytics Dashboard**: Track clicks, locations, and devices
+- **QR Code Generation**: Generate QR codes for easy sharing
+- **User Authentication**: Secure login/signup with Supabase Auth
+- **Link Management**: Edit, disable, or delete your links
+- **Real-time Tracking**: Monitor click statistics in real-time
+
+## 📸 Screenshots
+
+| Landing Page | Dashboard | Link Creation |
+|-------------|-----------|---------------|
+| ![Landing](screenshots/landing.png) | ![Dashboard](screenshots/dashboard.png) | ![Create](screenshots/create.png) |
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 18, Vite
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Authentication**: Supabase Auth
+- **Database**: PostgreSQL (Supabase)
+- **Routing**: React Router DOM
+- **Icons**: Lucide React
+
+## 📦 Installation
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/rut0607/TRIMMR-URLSHORTNER.git
+cd TRIMMR-URLSHORTNER
