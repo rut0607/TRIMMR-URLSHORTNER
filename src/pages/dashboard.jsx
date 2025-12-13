@@ -9,25 +9,13 @@ import {
   Link as LinkIcon, 
   BarChart3, 
   Clock,
-  TrendingUp,
   Eye,
   Copy,
   Edit,
   Trash2,
   QrCode,
   AlertCircle,
-  Sparkles,
-  ExternalLink,
-  Users,
-  Globe,
-  Target,
-  Activity,
-  Shield,
-  Rocket,
-  ChevronRight,
-  Filter,
-  Search,
-  Loader2
+  Search
 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -135,6 +123,16 @@ const Dashboard = () => {
       </div>
     );
   }
+
+  // Icons as emoji replacements for less critical ones
+  const EmojiIcons = {
+    Activity: "📈",
+    Sparkles: "✨",
+    Shield: "🛡️",
+    Rocket: "🚀",
+    Target: "🎯",
+    TrendingUp: "📈"
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
@@ -255,7 +253,7 @@ const Dashboard = () => {
                   <h3 className="text-3xl font-bold text-slate-900">{stats.avgClicks}</h3>
                 </div>
                 <div className="p-3 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl">
-                  <TrendingUp className="w-7 h-7 text-purple-600" />
+                  <span className="text-2xl">{EmojiIcons.TrendingUp}</span>
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t border-slate-100">
@@ -411,7 +409,6 @@ const Dashboard = () => {
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex-1 min-w-0">
-                        {/* Short URL with copy button - Matching image layout */}
                         <div className="mb-3">
                           <div className="flex items-center gap-2 mb-1">
                             <a 
@@ -430,32 +427,26 @@ const Dashboard = () => {
                               <Copy className="w-4 h-4" />
                             </button>
                           </div>
-                          {/* Original URL - Matching image layout */}
                           <p className="text-sm text-slate-600 truncate">{url.original_url}</p>
                         </div>
                         
-                        {/* Stats badges - Matching image layout */}
                         <div className="flex flex-wrap items-center gap-3 text-sm">
-                          {/* Clicks badge */}
                           <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">
                             <Eye className="w-3.5 h-3.5" />
                             {url.clicks_count || 0} clicks
                           </span>
                           
-                          {/* Date badge */}
                           <span className="inline-flex items-center gap-1.5 text-slate-700 px-3 py-1.5 rounded-lg font-medium bg-slate-50">
                             <Clock className="w-3.5 h-3.5" />
                             Created {formatTimeAgo(url.created_at)}
                           </span>
                           
-                          {/* Title badge - if exists */}
                           {url.title && (
                             <span className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-3 py-1.5 rounded-lg font-medium">
                               {url.title}
                             </span>
                           )}
                           
-                          {/* Inactive badge */}
                           {!url.is_active && (
                             <span className="inline-flex items-center gap-1.5 bg-red-50 text-red-700 px-3 py-1.5 rounded-lg font-medium">
                               <AlertCircle className="w-3.5 h-3.5" />
@@ -465,9 +456,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Action buttons - Matching image layout (Edit and Stats) */}
                       <div className="flex items-center gap-3">
-                        {/* Edit Button - Matching image */}
                         <Button
                           onClick={() => navigate(`/link/${url.id}/edit`)}
                           variant="outline"
@@ -478,7 +467,6 @@ const Dashboard = () => {
                           Edit
                         </Button>
                         
-                        {/* Stats Button - Matching image */}
                         <Button
                           onClick={() => navigate(`/analytics/${url.id}`)}
                           variant="outline"
@@ -489,7 +477,6 @@ const Dashboard = () => {
                           Stats
                         </Button>
                         
-                        {/* QR Code Button - Hidden in image but keeping functionality */}
                         <Button
                           onClick={() => navigate(`/qr/${url.id}`)}
                           variant="ghost"
@@ -500,7 +487,6 @@ const Dashboard = () => {
                           <QrCode className="w-4 h-4" />
                         </Button>
                         
-                        {/* Delete Button */}
                         <Button
                           variant="ghost"
                           size="sm"
@@ -553,7 +539,7 @@ const Dashboard = () => {
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-slate-900">
                   <div className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl">
-                    <Activity className="w-6 h-6 text-white" />
+                    <span className="text-white text-xl">{EmojiIcons.Activity}</span>
                   </div>
                   <div>
                     <div className="text-xl font-bold">Recent Activity</div>
@@ -599,7 +585,7 @@ const Dashboard = () => {
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-slate-900">
                   <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl">
-                    <Sparkles className="w-6 h-6 text-white" />
+                    <span className="text-white text-xl">{EmojiIcons.Sparkles}</span>
                   </div>
                   <div>
                     <div className="text-xl font-bold">Quick Tips</div>
@@ -652,21 +638,21 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center p-6">
                 <div className="inline-flex p-4 bg-gradient-to-r from-blue-100 to-blue-200 rounded-2xl mb-4">
-                  <Shield className="w-8 h-8 text-blue-600" />
+                  <span className="text-2xl">{EmojiIcons.Shield}</span>
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Secure & Reliable</h3>
                 <p className="text-slate-600">Enterprise-grade security with 99.9% uptime guarantee</p>
               </div>
               <div className="text-center p-6">
                 <div className="inline-flex p-4 bg-gradient-to-r from-purple-100 to-purple-200 rounded-2xl mb-4">
-                  <Rocket className="w-8 h-8 text-purple-600" />
+                  <span className="text-2xl">{EmojiIcons.Rocket}</span>
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Lightning Fast</h3>
                 <p className="text-slate-600">Instant URL shortening with global CDN delivery</p>
               </div>
               <div className="text-center p-6">
                 <div className="inline-flex p-4 bg-gradient-to-r from-teal-100 to-teal-200 rounded-2xl mb-4">
-                  <Target className="w-8 h-8 text-teal-600" />
+                  <span className="text-2xl">{EmojiIcons.Target}</span>
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">Advanced Analytics</h3>
                 <p className="text-slate-600">Detailed insights into clicks, locations, and devices</p>
