@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -7,11 +7,7 @@ import {
   Zap, 
   Shield, 
   BarChart3, 
-  Globe, 
-  Users, 
-  Rocket,
   Sparkles,
-  CheckCircle,
   Link as LinkIcon,
   ArrowRight
 } from "lucide-react";
@@ -35,9 +31,9 @@ const Landing = () => {
         <div className="absolute top-1/2 left-1/3 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative container mx-auto px-4 py-12">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-16">
+      <div className="relative px-4 py-12">
+        {/* Header - Made full width */}
+        <header className="flex justify-between items-center mb-16 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl">
               <LinkIcon className="w-7 h-7 text-white" />
@@ -63,8 +59,8 @@ const Landing = () => {
           </div>
         </header>
 
-        {/* Hero Section */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
+        {/* Hero Section - Made full width */}
+        <div className="text-center mb-20 px-4 sm:px-6 lg:px-8">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-yellow-400" />
             <span className="text-sm font-medium">The Future of URL Management</span>
@@ -82,9 +78,9 @@ const Landing = () => {
             custom branding, and QR code generation.
           </p>
 
-          {/* URL Shortener Form */}
-          <div className="max-w-2xl mx-auto mb-16">
-            <Card className="border-0 bg-white/10 backdrop-blur-lg shadow-2xl">
+          {/* URL Shortener Form - Made full width */}
+          <div className="mx-auto mb-16 px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <Card className="border-0 bg-white/10 backdrop-blur-lg shadow-2xl max-w-4xl mx-auto">
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1">
@@ -114,8 +110,8 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        {/* Features Grid - Made full width */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 px-4 sm:px-6 lg:px-8">
           <Card className="border-0 bg-gradient-to-br from-blue-500/10 to-blue-600/10 backdrop-blur-lg">
             <CardHeader>
               <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
@@ -162,97 +158,8 @@ const Landing = () => {
           </Card>
         </div>
 
-        {/* Stats Section */}
-        <div className="text-center mb-20">
-          <h2 className="text-3xl font-bold mb-12">Trusted by Thousands</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">50K+</div>
-              <p className="text-slate-400">Active Users</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">1M+</div>
-              <p className="text-slate-400">Links Created</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">10M+</div>
-              <p className="text-slate-400">Clicks Tracked</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">99.9%</div>
-              <p className="text-slate-400">Uptime</p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <Card className="border-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-lg mb-20">
-          <CardContent className="p-12 text-center">
-            <Rocket className="w-16 h-16 mx-auto mb-6 text-blue-400" />
-            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Links?</h2>
-            <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-              Join thousands of marketers, creators, and businesses who trust Trimmr 
-              for their link management needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-white text-slate-900 hover:bg-slate-100 px-8"
-                onClick={() => navigate("/signup")}
-              >
-                Start Free Trial
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 px-8"
-                onClick={() => navigate("/login")}
-              >
-                View Demo
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* FAQ Section */}
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {[
-              {
-                q: "Do I need an account to use Trimmr?",
-                a: "Yes, creating a free account allows you to manage your URLs, view detailed analytics, customize links, and access advanced features like QR code generation."
-              },
-              {
-                q: "What analytics are available for my shortened URLs?",
-                a: "Get real-time insights including total clicks, unique visitors, geographic location data, device types, referral sources, and hourly/daily click trends."
-              },
-              {
-                q: "Is there a limit to how many URLs I can shorten?",
-                a: "Free plan includes 100 URLs per month. Upgrade to Pro for unlimited links, custom domains, team collaboration, and priority support."
-              },
-              {
-                q: "Can I customize my short URLs?",
-                a: "Yes! Create branded short links with custom slugs (e.g., trimmr.com/your-brand). Pro users can even use their own custom domains."
-              }
-            ].map((faq, index) => (
-              <Card key={index} className="border-0 bg-white/5 backdrop-blur-lg">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">{faq.q}</h3>
-                      <p className="text-slate-300">{faq.a}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer */}
-        <footer className="mt-20 pt-10 border-t border-white/10 text-center">
+        {/* Footer - Made full width */}
+        <footer className="mt-20 pt-10 border-t border-white/10 text-center px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
               <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
