@@ -16,10 +16,8 @@ import {
   Trash2,
   QrCode,
   AlertCircle,
-  Zap,
   Sparkles,
   ExternalLink,
-  Download,
   Users,
   Globe,
   Target,
@@ -28,7 +26,8 @@ import {
   Rocket,
   ChevronRight,
   Filter,
-  Search
+  Search,
+  Loader2
 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -165,7 +164,7 @@ const Dashboard = () => {
             </div>
             <Button 
               onClick={() => navigate("/link")}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-3 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-3 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl text-white"
             >
               <PlusCircle className="w-6 h-6" />
               Create New Link
@@ -181,12 +180,12 @@ const Dashboard = () => {
                 placeholder="Search your links by URL, slug, or title..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 pr-4 py-6 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white/80"
+                className="pl-12 pr-4 py-6 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl bg-white/50 backdrop-blur-sm text-slate-900"
               />
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
                 >
                   ×
                 </button>
@@ -197,7 +196,7 @@ const Dashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-blue-50 hover:shadow-3xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-blue-50 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -214,7 +213,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-green-50 hover:shadow-3xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-green-50 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -231,7 +230,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-orange-50 hover:shadow-3xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-orange-50 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -248,7 +247,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-purple-50 hover:shadow-3xl transition-all duration-300 hover:-translate-y-1">
+          <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-purple-50 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -269,7 +268,7 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <Card 
-            className="border-0 shadow-2xl bg-gradient-to-br from-blue-50 to-white hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+            className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
             onClick={() => navigate("/link")}
           >
             <CardContent className="p-6">
@@ -284,7 +283,7 @@ const Dashboard = () => {
               </div>
               <Button 
                 onClick={() => navigate("/link")}
-                className="w-full mt-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-6 rounded-xl"
+                className="w-full mt-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-6 rounded-xl font-semibold"
               >
                 <PlusCircle className="w-5 h-5 mr-2" />
                 Get Started
@@ -293,7 +292,7 @@ const Dashboard = () => {
           </Card>
 
           <Card 
-            className="border-0 shadow-2xl bg-gradient-to-br from-purple-50 to-white hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+            className="border-0 shadow-xl bg-gradient-to-br from-purple-50 to-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
             onClick={() => urls.length > 0 ? navigate(`/qr/${urls[0].id}`) : navigate("/link")}
           >
             <CardContent className="p-6">
@@ -310,7 +309,7 @@ const Dashboard = () => {
               </div>
               <Button 
                 onClick={() => urls.length > 0 ? navigate(`/qr/${urls[0].id}`) : navigate("/link")}
-                className="w-full mt-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-6 rounded-xl"
+                className="w-full mt-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-6 rounded-xl font-semibold"
                 disabled={urls.length === 0}
               >
                 <QrCode className="w-5 h-5 mr-2" />
@@ -320,7 +319,7 @@ const Dashboard = () => {
           </Card>
 
           <Card 
-            className="border-0 shadow-2xl bg-gradient-to-br from-teal-50 to-white hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+            className="border-0 shadow-xl bg-gradient-to-br from-teal-50 to-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
             onClick={() => urls.length > 0 ? navigate(`/analytics/${urls[0].id}`) : toast.info("Create a link first to view analytics")}
           >
             <CardContent className="p-6">
@@ -337,7 +336,7 @@ const Dashboard = () => {
               </div>
               <Button 
                 onClick={() => urls.length > 0 ? navigate(`/analytics/${urls[0].id}`) : toast.info("Create a link first to view analytics")}
-                className="w-full mt-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-6 rounded-xl"
+                className="w-full mt-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-6 rounded-xl font-semibold"
                 disabled={urls.length === 0}
               >
                 <BarChart3 className="w-5 h-5 mr-2" />
@@ -348,8 +347,8 @@ const Dashboard = () => {
         </div>
 
         {/* URLs List */}
-        <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-slate-50 mb-10">
-          <CardHeader className="border-b border-slate-100 pb-6">
+        <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-slate-50 mb-10 overflow-hidden">
+          <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-blue-50 to-purple-50 pb-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div>
                 <CardTitle className="text-2xl font-bold text-slate-900">Your Links</CardTitle>
@@ -357,13 +356,13 @@ const Dashboard = () => {
               </div>
               <div className="flex items-center gap-4">
                 {searchQuery && (
-                  <span className="text-sm text-slate-500">
-                    Found {filteredUrls.length} of {urls.length} links
+                  <span className="text-sm text-slate-700 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-slate-200">
+                    {filteredUrls.length} of {urls.length} links
                   </span>
                 )}
                 <Button 
                   onClick={() => navigate("/link")}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-3 shadow-lg rounded-xl"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-3 shadow-lg rounded-xl font-semibold text-white"
                 >
                   <PlusCircle className="w-5 h-5" />
                   New Link
@@ -375,7 +374,7 @@ const Dashboard = () => {
           <CardContent className="p-6">
             {urls.length === 0 ? (
               <div className="text-center py-16">
-                <div className="mx-auto w-32 h-32 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mb-8">
+                <div className="mx-auto w-32 h-32 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mb-8 shadow-lg">
                   <LinkIcon className="h-16 w-16 text-blue-500" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-4">No URLs yet</h3>
@@ -384,7 +383,7 @@ const Dashboard = () => {
                 </p>
                 <Button 
                   onClick={() => navigate("/link")}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-4 px-10 py-7 text-xl rounded-xl"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-4 px-10 py-7 text-xl rounded-xl font-semibold text-white shadow-lg"
                 >
                   <PlusCircle className="w-6 h-6" />
                   Create Your First Link
@@ -398,7 +397,7 @@ const Dashboard = () => {
                 <Button 
                   onClick={() => setSearchQuery("")}
                   variant="outline"
-                  className="border-slate-300 text-slate-700"
+                  className="border-slate-300 text-slate-700 hover:bg-slate-50"
                 >
                   Clear Search
                 </Button>
@@ -406,98 +405,111 @@ const Dashboard = () => {
             ) : (
               <div className="space-y-4">
                 {filteredUrls.map((url) => (
-                  <div key={url.id} className="border border-slate-200 rounded-2xl p-6 hover:border-blue-300 hover:shadow-xl transition-all duration-300 bg-white group">
+                  <div 
+                    key={url.id} 
+                    className="border border-slate-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-300 bg-white"
+                  >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="p-3 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl mt-1">
-                            <LinkIcon className="w-5 h-5 text-blue-600" />
-                          </div>
-                          <div className="flex-1 min-w-0">
+                        {/* Short URL with copy button - Matching image layout */}
+                        <div className="mb-3">
+                          <div className="flex items-center gap-2 mb-1">
                             <a 
                               href={getShortUrl(url)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-bold text-blue-600 hover:text-blue-700 hover:underline truncate text-lg block"
+                              className="font-bold text-blue-600 hover:text-blue-700 hover:underline text-lg truncate"
                             >
                               {getShortUrl(url)}
                             </a>
-                            <p className="text-sm text-slate-600 truncate mt-1">{url.original_url}</p>
+                            <button 
+                              onClick={() => copyToClipboard(getShortUrl(url))}
+                              className="p-1 text-slate-400 hover:text-blue-600 rounded-md transition-colors"
+                              title="Copy to clipboard"
+                            >
+                              <Copy className="w-4 h-4" />
+                            </button>
                           </div>
+                          {/* Original URL - Matching image layout */}
+                          <p className="text-sm text-slate-600 truncate">{url.original_url}</p>
                         </div>
                         
-                        <div className="flex flex-wrap items-center gap-3 text-sm pl-14">
-                          <span className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold">
-                            <Eye className="w-4 h-4" />
+                        {/* Stats badges - Matching image layout */}
+                        <div className="flex flex-wrap items-center gap-3 text-sm">
+                          {/* Clicks badge */}
+                          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg font-medium">
+                            <Eye className="w-3.5 h-3.5" />
                             {url.clicks_count || 0} clicks
                           </span>
-                          <span className="flex items-center gap-2 text-slate-600 px-4 py-2">
-                            <Clock className="w-4 h-4" />
+                          
+                          {/* Date badge */}
+                          <span className="inline-flex items-center gap-1.5 text-slate-700 px-3 py-1.5 rounded-lg font-medium bg-slate-50">
+                            <Clock className="w-3.5 h-3.5" />
                             Created {formatTimeAgo(url.created_at)}
                           </span>
+                          
+                          {/* Title badge - if exists */}
                           {url.title && (
-                            <span className="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium">
+                            <span className="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 px-3 py-1.5 rounded-lg font-medium">
                               {url.title}
                             </span>
                           )}
+                          
+                          {/* Inactive badge */}
                           {!url.is_active && (
-                            <span className="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm flex items-center gap-2 font-semibold">
-                              <AlertCircle className="w-4 h-4" />
+                            <span className="inline-flex items-center gap-1.5 bg-red-50 text-red-700 px-3 py-1.5 rounded-lg font-medium">
+                              <AlertCircle className="w-3.5 h-3.5" />
                               Inactive
                             </span>
                           )}
                         </div>
                       </div>
                       
+                      {/* Action buttons - Matching image layout (Edit and Stats) */}
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2">
-                          <button 
-                            onClick={() => copyToClipboard(getShortUrl(url))}
-                            className="p-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
-                            title="Copy to clipboard"
-                          >
-                            <Copy className="w-5 h-5" />
-                          </button>
-                          <button 
-                            onClick={() => navigate(`/qr/${url.id}`)}
-                            className="p-3 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-colors"
-                            title="Generate QR Code"
-                          >
-                            <QrCode className="w-5 h-5" />
-                          </button>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 ml-2">
-                         <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => navigate(`/link/${url.id}/edit`)}
-                            className="border-blue-200 text-blue-600 bg-white rounded-xl"
->
-                           <Edit className="w-4 h-4" />
-                           Edit
+                        {/* Edit Button - Matching image */}
+                        <Button
+                          onClick={() => navigate(`/link/${url.id}/edit`)}
+                          variant="outline"
+                          size="sm"
+                          className="border-blue-200 text-blue-700 bg-white hover:bg-blue-50 hover:text-blue-800 hover:border-blue-300 rounded-lg font-medium px-4"
+                        >
+                          <Edit className="w-4 h-4 mr-2" />
+                          Edit
                         </Button>
-                          {/* Stats Button */}
-                        <Button 
-                         variant="outline" 
-  size="sm"
-  onClick={() => navigate(`/analytics/${url.id}`)}
-  className="border-purple-200 text-purple-600 bg-white rounded-xl"
->
-  <BarChart3 className="w-4 h-4" />
-  Stats
-</Button>
-
-{/* Delete Button */}
-<Button 
-  variant="destructive" 
-  size="sm"
-  onClick={() => handleDeleteUrl(url.id)}
-  className="bg-white border-red-200 text-red-600 rounded-xl"
->
-  <Trash2 className="w-4 h-4" />
-</Button>
-                        </div>
+                        
+                        {/* Stats Button - Matching image */}
+                        <Button
+                          onClick={() => navigate(`/analytics/${url.id}`)}
+                          variant="outline"
+                          size="sm"
+                          className="border-purple-200 text-purple-700 bg-white hover:bg-purple-50 hover:text-purple-800 hover:border-purple-300 rounded-lg font-medium px-4"
+                        >
+                          <BarChart3 className="w-4 h-4 mr-2" />
+                          Stats
+                        </Button>
+                        
+                        {/* QR Code Button - Hidden in image but keeping functionality */}
+                        <Button
+                          onClick={() => navigate(`/qr/${url.id}`)}
+                          variant="ghost"
+                          size="sm"
+                          className="text-slate-600 hover:text-green-600 hover:bg-green-50 rounded-lg"
+                          title="QR Code"
+                        >
+                          <QrCode className="w-4 h-4" />
+                        </Button>
+                        
+                        {/* Delete Button */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteUrl(url.id)}
+                          className="text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -507,26 +519,28 @@ const Dashboard = () => {
           </CardContent>
           
           {filteredUrls.length > 0 && (
-            <CardHeader className="border-t border-slate-100 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <CardHeader className="border-t border-slate-100 bg-gradient-to-r from-slate-50 to-blue-50/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
               <CardDescription className="text-slate-600">
                 Showing {filteredUrls.length} of {urls.length} links
               </CardDescription>
               <div className="flex gap-2">
-  <Button 
-    variant="outline" 
-    size="sm" 
-    className="border-slate-300 text-slate-700 bg-white rounded-xl"
-  >
-    Previous
-  </Button>
-  <Button 
-    variant="outline" 
-    size="sm" 
-    className="border-slate-300 text-slate-700 bg-white rounded-xl"
-  >
-    Next
-  </Button>
-</div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-800 rounded-lg"
+                  disabled
+                >
+                  Previous
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-800 rounded-lg"
+                  disabled
+                >
+                  Next
+                </Button>
+              </div>
             </CardHeader>
           )}
         </Card>
@@ -535,7 +549,7 @@ const Dashboard = () => {
         {urls.length > 0 && (
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Recent Activity */}
-            <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-blue-50">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-blue-50">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-slate-900">
                   <div className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl">
@@ -581,7 +595,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Quick Tips */}
-            <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-purple-50">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-purple-50">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-3 text-slate-900">
                   <div className="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl">
@@ -629,7 +643,7 @@ const Dashboard = () => {
         )}
 
         {/* Features Section */}
-        <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-blue-50 mb-10">
+        <Card className="border-0 shadow-xl bg-gradient-to-br from-white to-blue-50 mb-10">
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-2xl font-bold text-slate-900">Why Choose Trimmr?</CardTitle>
             <CardDescription className="text-slate-600">Powerful features for your link management needs</CardDescription>
@@ -670,9 +684,8 @@ const Dashboard = () => {
           <div className="flex items-center justify-center gap-6 text-sm text-slate-500">
             <span>© {new Date().getFullYear()} Trimmr</span>
             <span>•</span>
-            <span>Made with ❤️ for the web</span>
-            <span>•</span>
             <a href="#" className="hover:text-blue-600 hover:underline">Privacy Policy</a>
+            <span>•</span>
             <a href="#" className="hover:text-blue-600 hover:underline">Terms of Service</a>
           </div>
         </div>

@@ -88,7 +88,7 @@ const Header = () => {
               {/* Landing Navigation - Removed features, pricing, analytics, FAQ */}
               <button
                 onClick={() => navigate("/")}
-                className="p-2 text-slate-600 bg-white border border-slate-300 rounded-lg"
+                className="p-2 text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
                 title="Home"
               >
                 <Home className="w-5 h-5" />
@@ -96,14 +96,14 @@ const Header = () => {
 
               <button
                 onClick={() => navigate("/login")}
-                className="px-4 py-2 text-slate-700 text-sm font-medium border border-slate-300 bg-white rounded-lg"
+                className="px-4 py-2 text-slate-700 text-sm font-medium border border-slate-300 bg-white rounded-lg hover:bg-slate-50 transition-colors"
               >
                 Sign In
               </button>
               
               <button
                 onClick={() => navigate("/signup")}
-                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-sm"
+                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-shadow"
               >
                 Get Started
               </button>
@@ -114,7 +114,7 @@ const Header = () => {
               <div className="hidden md:flex items-center gap-2">
                 <button
                   onClick={() => navigate("/dashboard")}
-                  className="px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-lg font-medium flex items-center gap-2"
+                  className="px-4 py-2.5 text-slate-700 bg-white border border-slate-300 rounded-lg font-medium flex items-center gap-2 hover:bg-slate-50 transition-colors"
                 >
                   <div className="p-1.5 bg-blue-100 rounded-lg">
                     <BarChart3 className="w-4 h-4 text-blue-600" />
@@ -124,7 +124,7 @@ const Header = () => {
                 
                 <button
                   onClick={() => navigate("/link")}
-                  className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-sm flex items-center gap-2 ml-2"
+                  className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-sm flex items-center gap-2 ml-2 hover:shadow-md transition-shadow"
                 >
                   <PlusCircle className="w-4 h-4" />
                   Create Link
@@ -134,7 +134,7 @@ const Header = () => {
               {/* Mobile Menu Button for Create Link */}
               <button
                 onClick={() => navigate("/link")}
-                className="md:hidden p-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-sm"
+                className="md:hidden p-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 title="Create Link"
               >
                 <PlusCircle className="w-5 h-5" />
@@ -143,7 +143,7 @@ const Header = () => {
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger className="focus:outline-none">
-                  <div className="flex items-center gap-2 p-1.5 rounded-full border border-slate-300 bg-white cursor-pointer">
+                  <div className="flex items-center gap-2 p-1.5 rounded-full border border-slate-300 bg-white cursor-pointer hover:bg-slate-50 transition-colors">
                     <div className="relative">
                       <Avatar className="w-10 h-10 border-2 border-white shadow-sm">
                         <AvatarImage 
@@ -164,8 +164,11 @@ const Header = () => {
                   </div>
                 </DropdownMenuTrigger>
                 
-                <DropdownMenuContent align="end" className="w-64 border-slate-200 shadow-lg rounded-lg">
-                  <DropdownMenuLabel className="p-4">
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-64 bg-white border-slate-200 shadow-lg rounded-xl p-2"
+                >
+                  <DropdownMenuLabel className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg mb-2">
                     <div className="flex items-center gap-3">
                       <Avatar className="w-12 h-12 border-2 border-blue-100">
                         <AvatarImage 
@@ -183,41 +186,53 @@ const Header = () => {
                     </div>
                   </DropdownMenuLabel>
                   
-                  <DropdownMenuSeparator className="bg-slate-100" />
+                  <DropdownMenuSeparator className="bg-slate-100 my-2" />
                   
-                  <DropdownMenuItem asChild className="p-3 cursor-pointer">
-                    <Link to="/dashboard" className="flex items-center w-full">
+                  <DropdownMenuItem className="p-3 cursor-pointer hover:bg-slate-50 focus:bg-slate-50 rounded-lg">
+                    <Link to="/dashboard" className="flex items-center w-full text-slate-900">
                       <div className="p-2 bg-blue-100 rounded-lg mr-3">
                         <BarChart3 className="w-4 h-4 text-blue-600" />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900">Dashboard</p>
+                        <p className="font-medium">Dashboard</p>
                         <p className="text-xs text-slate-500">View all your links</p>
                       </div>
                     </Link>
                   </DropdownMenuItem>
                   
-                  <DropdownMenuItem asChild className="p-3 cursor-pointer">
-                    <Link to="/link" className="flex items-center w-full">
+                  <DropdownMenuItem className="p-3 cursor-pointer hover:bg-slate-50 focus:bg-slate-50 rounded-lg">
+                    <Link to="/link" className="flex items-center w-full text-slate-900">
                       <div className="p-2 bg-purple-100 rounded-lg mr-3">
                         <LinkIcon className="w-4 h-4 text-purple-600" />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900">Create Link</p>
+                        <p className="font-medium">Create Link</p>
                         <p className="text-xs text-slate-500">Shorten a new URL</p>
                       </div>
                     </Link>
                   </DropdownMenuItem>
                   
-                  <DropdownMenuSeparator className="bg-slate-100" />
+                  <DropdownMenuItem className="p-3 cursor-pointer hover:bg-slate-50 focus:bg-slate-50 rounded-lg">
+                    <Link to="/qr" className="flex items-center w-full text-slate-900">
+                      <div className="p-2 bg-teal-100 rounded-lg mr-3">
+                        <QrCode className="w-4 h-4 text-teal-600" />
+                      </div>
+                      <div>
+                        <p className="font-medium">QR Codes</p>
+                        <p className="text-xs text-slate-500">Generate QR codes</p>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
                   
-                  <DropdownMenuItem asChild className="p-3 cursor-pointer">
-                    <Link to="/settings" className="flex items-center w-full">
+                  <DropdownMenuSeparator className="bg-slate-100 my-2" />
+                  
+                  <DropdownMenuItem className="p-3 cursor-pointer hover:bg-slate-50 focus:bg-slate-50 rounded-lg">
+                    <Link to="/settings" className="flex items-center w-full text-slate-900">
                       <div className="p-2 bg-slate-100 rounded-lg mr-3">
                         <Settings className="w-4 h-4 text-slate-600" />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900">Settings</p>
+                        <p className="font-medium">Settings</p>
                         <p className="text-xs text-slate-500">Account & preferences</p>
                       </div>
                     </Link>
@@ -225,11 +240,11 @@ const Header = () => {
                   
                   <DropdownMenuItem 
                     onClick={handleLogout}
-                    className="p-3 cursor-pointer text-red-600"
+                    className="p-3 cursor-pointer hover:bg-red-50 focus:bg-red-50 rounded-lg text-red-600"
                   >
                     <div className="flex items-center w-full">
                       <div className="p-2 bg-red-100 rounded-lg mr-3">
-                        <LogOut className="w-4 h-4 text-red-600" />
+                        <LogOut className="w-4 h-4" />
                       </div>
                       <div>
                         <p className="font-medium">Logout</p>

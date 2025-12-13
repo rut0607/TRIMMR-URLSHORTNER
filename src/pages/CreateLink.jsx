@@ -390,7 +390,7 @@ const CreateLink = () => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         placeholder="https://example.com/very-long-url-path"
-                        className="w-full h-14 pl-12 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white"
+                        className="w-full h-14 pl-12 text-black text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-bulewhite"
                         required
                       />
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -428,7 +428,7 @@ const CreateLink = () => {
                           setCustomSlug(filtered);
                         }}
                         placeholder="my-custom-link"
-                        className="flex-1 h-14 text-lg border-2 border-slate-200 focus:border-purple-500 focus:ring-purple-500 rounded-xl bg-white"
+                        className="flex-1 h-14 text-black border-2 border-slate-200 focus:border-purple-500 focus:ring-purple-500 rounded-xl bg-white"
                         maxLength={30}
                       />
                     </div>
