@@ -468,32 +468,35 @@ const Dashboard = () => {
                         </div>
                         
                         <div className="flex items-center gap-2 ml-2">
-                          <Button 
+                         <Button 
                             variant="outline" 
                             size="sm"
                             onClick={() => navigate(`/link/${url.id}/edit`)}
-                            className="border-blue-300 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-400 rounded-xl"
-                          >
-                            <Edit className="w-4 h-4" />
-                            Edit
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => navigate(`/analytics/${url.id}`)}
-                            className="border-purple-300 text-purple-600 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-400 rounded-xl"
-                          >
-                            <BarChart3 className="w-4 h-4" />
-                            Stats
-                          </Button>
-                          <Button 
-                            variant="destructive" 
-                            size="sm"
-                            onClick={() => handleDeleteUrl(url.id)}
-                            className="hover:bg-red-100 hover:text-red-600 rounded-xl"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+                            className="border-blue-200 text-blue-600 bg-white rounded-xl"
+>
+                           <Edit className="w-4 h-4" />
+                           Edit
+                        </Button>
+                          {/* Stats Button */}
+                        <Button 
+                         variant="outline" 
+  size="sm"
+  onClick={() => navigate(`/analytics/${url.id}`)}
+  className="border-purple-200 text-purple-600 bg-white rounded-xl"
+>
+  <BarChart3 className="w-4 h-4" />
+  Stats
+</Button>
+
+{/* Delete Button */}
+<Button 
+  variant="destructive" 
+  size="sm"
+  onClick={() => handleDeleteUrl(url.id)}
+  className="bg-white border-red-200 text-red-600 rounded-xl"
+>
+  <Trash2 className="w-4 h-4" />
+</Button>
                         </div>
                       </div>
                     </div>
@@ -509,13 +512,21 @@ const Dashboard = () => {
                 Showing {filteredUrls.length} of {urls.length} links
               </CardDescription>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 rounded-xl">
-                  Previous
-                </Button>
-                <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 rounded-xl">
-                  Next
-                </Button>
-              </div>
+  <Button 
+    variant="outline" 
+    size="sm" 
+    className="border-slate-300 text-slate-700 bg-white rounded-xl"
+  >
+    Previous
+  </Button>
+  <Button 
+    variant="outline" 
+    size="sm" 
+    className="border-slate-300 text-slate-700 bg-white rounded-xl"
+  >
+    Next
+  </Button>
+</div>
             </CardHeader>
           )}
         </Card>

@@ -20,6 +20,7 @@ const CreateLink = () => {
   const [url, setUrl] = useState("");
   const [customSlug, setCustomSlug] = useState("");
   const [shortenedUrl, setShortenedUrl] = useState("");
+  const [createdLinkId, setCreatedLinkId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qrCopied, setQrCopied] = useState(false);
@@ -68,6 +69,7 @@ const CreateLink = () => {
         setUrl(data.original_url);
         setCustomSlug(data.short_url);
         setShortenedUrl(`${window.location.origin}/${data.short_url}`);
+        setCreatedLinkId(data.id);
       }
     } catch (err) {
       console.error("Error fetching URL data:", err);
@@ -82,7 +84,7 @@ const CreateLink = () => {
       devices: { 
         mobile: Math.floor(Math.random() * 40) + 40,
         desktop: Math.floor(Math.random() * 40) + 30,
-        tablet: 100 - (Math.floor(Math.random() * 40) + 40 + Math.floor(Math.random() * 40) + 30)
+        tablet: Math.max(0, 100 - (Math.floor(Math.random() * 40) + 40 + Math.floor(Math.random() * 40) + 30))
       }
     });
   };
@@ -127,6 +129,7 @@ const CreateLink = () => {
     setLoading(true);
     setError("");
     setSuccess("");
+    setCreatedLinkId(null);
     
     try {
       const validatedUrl = validateUrl(url);
@@ -153,6 +156,7 @@ const CreateLink = () => {
       if (data) {
         const fullShortUrl = `${window.location.origin}/${data.short_url}`;
         setShortenedUrl(fullShortUrl);
+        setCreatedLinkId(data.id);
         setSuccess('URL shortened successfully!');
       }
       
@@ -165,9 +169,11 @@ const CreateLink = () => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shortenedUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (shortenedUrl) {
+      navigator.clipboard.writeText(shortenedUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const copyQrCode = async () => {
@@ -194,6 +200,21 @@ const CreateLink = () => {
       link.href = canvas.toDataURL();
       link.click();
     }
+  };
+
+  const handleCreateAnother = () => {
+    setUrl("");
+    setCustomSlug("");
+    setShortenedUrl("");
+    setCreatedLinkId(null);
+    setSuccess("");
+    setError("");
+  };
+
+  const getShortSlug = () => {
+    if (!shortenedUrl) return '';
+    const parts = shortenedUrl.split('/');
+    return parts[parts.length - 1];
   };
 
   if (!user) {
@@ -249,12 +270,14 @@ const CreateLink = () => {
                   <LinkIcon className="w-6 h-6 text-white" />
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-                  {id ? "Manage Your Link" : "Create Short Link"}
+                  {id ? "Manage Your Link" : shortenedUrl ? "Link Created!" : "Create Short Link"}
                 </h1>
               </div>
               <p className="text-lg text-slate-600 max-w-2xl">
                 {id 
                   ? "View analytics, generate QR code, or edit your shortened URL"
+                  : shortenedUrl
+                  ? "Your link has been created. Use the options below to manage it."
                   : "Shorten any URL and make it memorable"
                 }
               </p>
@@ -295,8 +318,8 @@ const CreateLink = () => {
             <TabsTrigger 
               value="qr" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white rounded-xl transition-all"
-              onClick={() => navigate(`/link/${id || shortenedUrl.split('/').pop()}?tab=qr`)}
-              disabled={!id && !shortenedUrl}
+              onClick={() => navigate(`/link/${createdLinkId || id || getShortSlug()}?tab=qr`)}
+              disabled={!shortenedUrl && !id}
             >
               <QrCode className="w-4 h-4 mr-2" />
               QR Code
@@ -304,8 +327,8 @@ const CreateLink = () => {
             <TabsTrigger 
               value="analytics" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white rounded-xl transition-all"
-              onClick={() => navigate(`/link/${id || shortenedUrl.split('/').pop()}?tab=analytics`)}
-              disabled={!id && !shortenedUrl}
+              onClick={() => navigate(`/link/${createdLinkId || id || getShortSlug()}?tab=analytics`)}
+              disabled={!shortenedUrl && !id}
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Analytics
@@ -367,7 +390,7 @@ const CreateLink = () => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         placeholder="https://example.com/very-long-url-path"
-                        className="w-full h-14 pl-12 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white/80"
+                        className="w-full h-14 pl-12 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white"
                         required
                       />
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -405,7 +428,7 @@ const CreateLink = () => {
                           setCustomSlug(filtered);
                         }}
                         placeholder="my-custom-link"
-                        className="flex-1 h-14 text-lg border-2 border-slate-200 focus:border-purple-500 focus:ring-purple-500 rounded-xl"
+                        className="flex-1 h-14 text-lg border-2 border-slate-200 focus:border-purple-500 focus:ring-purple-500 rounded-xl bg-white"
                         maxLength={30}
                       />
                     </div>
@@ -518,7 +541,7 @@ const CreateLink = () => {
                     <div className="mb-6 p-8 bg-gradient-to-br from-white to-purple-50 rounded-2xl border-2 border-purple-100 shadow-lg">
                       <QRCodeSVG
                         id="qr-code-canvas"
-                        value={shortenedUrl || `${window.location.origin}/${id}`}
+                        value={shortenedUrl || `${window.location.origin}/${getShortSlug()}`}
                         size={240}
                         level="H"
                         includeMargin={true}
@@ -723,7 +746,7 @@ const CreateLink = () => {
                       Engagement Rate
                     </h4>
                     <p className="text-slate-600">
-                      Your link has an engagement rate of {(analyticsData.uniqueVisitors / analyticsData.totalClicks * 100).toFixed(1)}%, which is above average.
+                      Your link has an engagement rate of {(analyticsData.uniqueVisitors / Math.max(analyticsData.totalClicks, 1) * 100).toFixed(1)}%, which is above average.
                     </p>
                   </div>
                 </div>
@@ -732,8 +755,8 @@ const CreateLink = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Quick Actions (only when URL is created and not in edit mode) */}
-        {shortenedUrl && !id && (
+        {/* NEXT STEPS - Always show after successful creation */}
+        {shortenedUrl && (
           <Card className="border-0 shadow-2xl mt-10 bg-gradient-to-br from-white to-blue-50">
             <CardHeader>
               <CardTitle className="text-xl font-bold text-slate-900">Next Steps</CardTitle>
@@ -754,7 +777,14 @@ const CreateLink = () => {
                 </Button>
                 
                 <Button 
-                  onClick={() => navigate(`/link/${shortenedUrl.split('/').pop()}?tab=analytics`)}
+                  onClick={() => {
+                    const linkId = createdLinkId || id;
+                    if (linkId) {
+                      navigate(`/link/${linkId}?tab=analytics`);
+                    } else {
+                      navigate(`/analytics/${getShortSlug()}`);
+                    }
+                  }}
                   variant="outline"
                   className="h-auto py-6 flex flex-col items-center gap-3 border-purple-200 hover:border-purple-300 hover:bg-purple-50 rounded-xl"
                 >
@@ -766,13 +796,7 @@ const CreateLink = () => {
                 </Button>
                 
                 <Button 
-                  onClick={() => {
-                    setUrl("");
-                    setCustomSlug("");
-                    setShortenedUrl("");
-                    setSuccess("");
-                    navigate("/link");
-                  }}
+                  onClick={handleCreateAnother}
                   variant="outline"
                   className="h-auto py-6 flex flex-col items-center gap-3 border-green-200 hover:border-green-300 hover:bg-green-50 rounded-xl"
                 >

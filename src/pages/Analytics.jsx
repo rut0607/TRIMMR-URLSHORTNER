@@ -330,13 +330,6 @@ const Analytics = () => {
               </div>
               <div className="text-3xl font-bold text-slate-900 mb-2">{analytics.clicksToday}</div>
               <p className="text-slate-600 font-medium">Clicks Today</p>
-              <div className="mt-6">
-                <div className="flex justify-between text-sm mb-2 font-medium">
-                  <span className="text-slate-500">Daily Target</span>
-                  <span className="text-blue-600">80%</span>
-                </div>
-                <Progress value={80} className="h-2.5" />
-              </div>
             </CardContent>
           </Card>
 
@@ -413,7 +406,7 @@ const Analytics = () => {
             <div>
               <label className="text-sm font-medium text-slate-700 mb-1 block">Time Range</label>
               <select 
-                className="border border-slate-300 rounded-xl px-4 py-2.5 text-base bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                className="border border-slate-300 rounded-xl px-4 py-2.5 text-base bg-black focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={timeRange}
                 onChange={(e) => setTimeRange(e.target.value)}
               >
@@ -671,6 +664,7 @@ const Analytics = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

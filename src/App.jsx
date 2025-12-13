@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/landing";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import CreateLink from "./pages/CreateLink";  // Renamed from link.jsx
